@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finsight Smart Advisor (p1.3)</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #eef8ff, #f7fbff);
+            margin: 0; padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            padding: 35px;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 25px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        input, button {
+            padding: 12px;
+            font-size: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #0078D7;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #005ea0;
+        }
+        .result-box {
+            background: #f9fbff;
+            border-left: 6px solid #0078D7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+        .nav {
+            text-align: center;
+            margin-top: 15px;
+        }
+        a {
+            color: #0078D7;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💡 Finsight AI Advisor</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="number" name="monthly_investment" step="0.01" placeholder="Monthly Investment (₹)" required>
+            <input type="number" name="annual_rate" step="0.01" placeholder="Expected Annual Return (%)" required>
+            <input type="number" name="years" placeholder="Investment Duration (Years)" required>
+            <button type="submit">AI Predict My Returns</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result-box">
+            <p>{{ prediction }}</p>
+            <p style="font-size:13px; color:#555;">(This is an AI-estimated SIP projection. Actual results may vary.)</p>
+        </div>
+        {% endif %}
+
+        <div class="nav">
+            <p><a href="/">← Go back to Dashboard</a></p>
+        </div>
+    </div>
+</body>
+</html>
